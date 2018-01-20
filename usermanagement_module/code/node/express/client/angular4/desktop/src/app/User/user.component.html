@@ -1,0 +1,133 @@
+<section>
+    <div class="container">
+        <div *ngIf="listuser">
+            <div class="row">
+                <label>List of Users</label>
+                <div class="pull-right">
+                    <button mat-raised-button color="primary" (click)="createuser()">Create</button>
+                </div>
+            </div>
+            <br>
+            <mat-selection-list #users>
+                <mat-list-option *ngFor="let user of listofusers" (click)="adduser(user)">
+                    {{user.username}}
+                </mat-list-option>
+            </mat-selection-list>
+            <p>
+                Options selected: {{users.selectedOptions.selected.length}}
+            </p>
+            <div class="row pull-right">
+                <button mat-raised-button color="warn" (click)="delete()">Delete</button>
+                <button mat-raised-button color="primary" (click)="cancelList()">Cancel</button>
+            </div>
+        </div>
+        <div *ngIf="create">
+            <h3>Create User Form</h3>
+            <br>
+            <br>
+            <div class="pull-right">
+                    <button mat-raised-button color="primary" (click)="openrole()">Create New Role</button>
+            </div>
+            <div class="row">
+                <div class="row col-lg-1 col-lg-offset-2">
+                    <label>FirstName: </label>
+                </div>
+                <div class="row col-lg-5 col-lg-offset-2">
+                    <mat-form-field>
+                        <input matInput placeholder="Firstname" [(ngModel)]="users.firstname" >
+                    </mat-form-field>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="row col-lg-1 col-lg-offset-2">
+                    <label>LastName: </label>
+                </div>
+                <div class="row col-lg-5 col-lg-offset-2">
+                    <mat-form-field>
+                        <input matInput placeholder="LastName" [(ngModel)]="users.lastname" >
+                    </mat-form-field>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="row col-lg-1 col-lg-offset-2">
+                    <label>Username: </label>
+                </div>
+                <div class="row col-lg-5 col-lg-offset-2">
+                    <mat-form-field>
+                        <input matInput placeholder="Username" [(ngModel)]="users.username" >
+                    </mat-form-field>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="row col-lg-1 col-lg-offset-2">
+                    <label>Password: </label>
+                </div>
+                <div class="row col-lg-5 col-lg-offset-2">
+                    <mat-form-field>
+                        <input matInput placeholder="Password" [(ngModel)]="users.password" >
+                    </mat-form-field>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="row col-lg-1 col-lg-offset-2">
+                    <label>Role: </label>
+                </div>
+                <div class="row col-lg-5 col-lg-offset-2">
+                   <mat-form-field>
+                    <mat-select [placeholder]='Role' [(ngModel)]="users.role">
+                        <mat-option *ngFor="let role of listofauthority" [value]="role.name"  >
+                      
+                       {{role.id}}.{{role.name}}
+                        </mat-option>
+
+                    </mat-select>
+
+                   </mat-form-field>
+                   
+                   
+                   
+                    <!-- <mat-form-field>
+                        <mat-select [(value)]="selected">
+                            <mat-option value="option1">ROLE_ADMIN</mat-option>
+                            <mat-option value="option2">ROLE_USER</mat-option>
+                        </mat-select>
+                    </mat-form-field> -->
+                </div>
+               
+            </div>
+            <br>
+            <div class="pull-right">
+                <button mat-raised-button color="primary" (click)="saveUser()">Save</button>
+                <button mat-raised-button color="primary" (click)="createcancel()">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<modal #modalSFU>
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">ADD Role</h4>
+        </modal-header>
+        <modal-body>
+                <div class="row">
+                        <div class="row col-lg-2 col-lg-offset-2">
+                            <label>Role: </label>
+                        </div>
+                        <div class="row col-lg-4 col-lg-offset-2">
+                            <mat-form-field>
+                                <input matInput placeholder="Enter Role" [(ngModel)] = "users.newrole" >
+                            </mat-form-field>
+                        </div>
+                    </div>
+        </modal-body>
+        <modal-footer>
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modalSFU.dismiss()">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="saveNewRole()">Save</button>
+        </modal-footer>
+    </modal>
